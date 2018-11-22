@@ -89,10 +89,10 @@ export default class App extends React.Component {
 
     let winner = this.getWinner();
     if (winner == 1) {
-      Alert.alert('Jugador 1 es el ganador');
+      Alert.alert('El virus gano X_X');
       this.initializeGame();
     } else if (winner == -1) {
-      Alert.alert('Jugador 2 es el ganador');
+      Alert.alert('El antivirus GANA (ツ)_/¯');
       this.initializeGame();
     }
   }
