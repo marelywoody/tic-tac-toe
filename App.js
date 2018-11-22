@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, Button} from 'react-native';
 import { MaterialCommunityIcons as Icon} from 'react-native-vector-icons';
 
 export default class App extends React.Component {
@@ -27,8 +27,49 @@ export default class App extends React.Component {
         [0,0,0],
         [0,0,0],
         [0,0,0]
-      ]
+      ], 
+      currentPlayer: 1,
     });
+  }
+
+  getWinner =  () => {
+    let sum;
+    const NUM_TILES = 3;
+    let arr = this.state.gameState;
+
+    for (let i = 0; i < NUM_TILES; i++) {
+      sum = arr[i][0] + arr[i][1] + arr[i][2];
+      if ( sum == 3) {
+        return 1;
+      } else if (sum == -3) {
+        return -1;
+      }
+    }
+
+    for (let i = 0; i < NUM_TILES; i++) {
+      sum = arr[0][i] + arr[1][i] + arr[2][i];
+      if ( sum == 3) {
+        return 1;
+      } else if (sum == -3) {
+        return -1;
+      }
+    }
+
+    sum = arr[0][0] + arr[1][1] + arr[2][2];
+    if (sum ==3 ) {
+      return 1;
+    } else if (sum == -3) {
+      return -1;
+    }
+
+    sum = arr[2][0] + arr[1][1] + arr[0][2];
+    if (sum ==3 ) {
+      return 1;
+    } else if (sum == -3) {
+      return -1;
+    }
+
+    return 0;
   }
 
   onTilePress = (row, col) => {
@@ -45,6 +86,19 @@ export default class App extends React.Component {
 
     let nextPlayer = (currentPlayer == 1) ? -1 : 1;
     this.setState({currentPlayer: nextPlayer});
+
+    let winner = this.getWinner();
+    if (winner == 1) {
+      Alert.alert('Jugador 1 es el ganador');
+      this.initializeGame();
+    } else if (winner == -1) {
+      Alert.alert('Jugador 2 es el ganador');
+      this.initializeGame();
+    }
+  }
+
+  onNewGamePress = () => {
+    this.initializeGame();
   }
 
   renderIcon = (row,col) => {
@@ -96,8 +150,9 @@ export default class App extends React.Component {
             {this.renderIcon(2,2)}
           </TouchableOpacity>
         </View>
-
-      </View>
+        <View style={{paddingTop:50}}/>
+        <Button title="Nuevo Juego" onPress={this.onNewGamePress}/>
+      </View >
     );
   }
 }
@@ -113,19 +168,17 @@ const styles = StyleSheet.create({
     borderWidth: 10,
     width: 100,
     height: 100,
+    alignItems: "center",
+    justifyContent: "center",
   },
   tileX: {
     color: "red",
     fontSize: 60,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   }, 
   tileO: {
     color: "green",
     fontSize: 60,
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   }
 });
