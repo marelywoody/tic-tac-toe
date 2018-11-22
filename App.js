@@ -151,7 +151,7 @@ export default class App extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={{paddingTop:50}}/>
-        <Button title="Nuevo Juego" onPress={this.onNewGamePress}/>
+        <Button title="Nuevo Juego" onPress={this.onNewGamePress}  color="#850886"/>
       </View >
     );
   }
@@ -160,25 +160,28 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#590B28',
     alignItems: 'center',
     justifyContent: 'center',
   },
   tile:{
-    borderWidth: 10,
+    borderWidth: 7,
     width: 100,
     height: 100,
     alignItems: "center",
     justifyContent: "center",
+    borderColor:"#C7C7C7",
   },
   tileX: {
-    color: "red",
+    color: "#C9131F",
     fontSize: 60,
     flex: 1,
+    top: 12,
   }, 
   tileO: {
-    color: "green",
+    color: "#19B379",
     fontSize: 60,
     flex: 1,
+    top: 12,
   }
 });
